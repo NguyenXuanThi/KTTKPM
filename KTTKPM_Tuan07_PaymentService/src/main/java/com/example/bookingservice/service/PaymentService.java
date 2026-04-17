@@ -1,12 +1,13 @@
-package com.example.paymentservice.service;
+package com.example.bookingservice.service;
 
-import com.example.paymentservice.dto.BookingEvent;
-import com.example.paymentservice.dto.PaymentEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import com.example.bookingservice.model.Booking;
+import com.example.bookingservice.model.PaymentEvent;
 
 import java.util.Random;
 
@@ -19,8 +20,8 @@ public class PaymentService {
     private final Random random = new Random();
 
     // 1. Listen event BOOKING_CREATED từ người số 4
-    @KafkaListener(topics = "BOOKING_CREATED", groupId = "payment-group")
-    public void processPayment(BookingEvent bookingEvent) {
+    @KafkaListener(topics = "BOOKING_CREATED", groupId = "payment-group-v3")
+    public void processPayment(Booking bookingEvent) {
         log.info("Received BOOKING_CREATED event for Booking ID: {}", bookingEvent.getBookingId());
 
         // 2. Xử lý thanh toán: Random success/fail theo yêu cầu đề bài
